@@ -234,6 +234,7 @@ class PTYShellFactory (object, metaclass=ru.Singleton) :
             # pprint.pprint(info)
 
             shell_pass = info['pass']
+            # mat: this is the issue, you can ovveride and that will work fine
             key_pass   = info['key_pass']
             prompt     = info['prompt']
             logger     = info['logger']
@@ -628,8 +629,9 @@ class PTYShellFactory (object, metaclass=ru.Singleton) :
                                     if  context.attribute_exists("user_pass") \
                                         and context.user_pass:
                                         info['key_pass'][context.user_key] = context.user_pass
+                                        info['pass'] = context.user_pass
 
-                        if  context.type.lower () == "userpass" :
+                        if  context.type.lower () == "userpass":
                             if  info['schema'] in _SCHEMAS_SSH + _SCHEMAS_GSI :
                                 if  context.attribute_exists ("user_id") and \
                                     context.user_id :
